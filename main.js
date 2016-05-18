@@ -7,15 +7,16 @@ let mainWindow;
 let createWindow = () => {
   mainWindow = new BrowserWindow({width: 800, height: 600});
   mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+  mainWindow.webContents.openDevTools();
   mainWindow.on('closed', () => {
     mainWindow = null;
     app.quit();
   });
 }
 
-ipc.on('asynchronous-message-saw', (event, args) => {
-  console.log(`${args} pong`);
-});
+// ipc.on('asynchronous-message-saw', (event, args) => {
+//   console.log(`${args} pong`);
+// });
 
 app.on('ready', createWindow);
 app.on('window-all-closed', () => {
