@@ -57,9 +57,9 @@ class SAWPTEView extends SAWPTE {
     } else {
       this.$control.removeClass('show');
     }
-    this.$time.dom.innerHTML = this.calcTime(this.time);
-    this.$title.dom.innerHTML = this.title ? this.title : 'Title';
-    this.$presenter.dom.innerHTML = this.presenter ? this.presenter : 'Presenter';
+    this.$time.setHtml(this.calcTime(this.time));
+    this.$title.setHtml(this.title ? this.title : 'Title');
+    this.$presenter.setHtml(this.presenter ? this.presenter : 'Presenter');
   }
   calcTime(time) {
     const fillZero = (num) => ("0" + num).slice(-2);

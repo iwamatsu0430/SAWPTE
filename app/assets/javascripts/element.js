@@ -13,6 +13,9 @@ class SAWPTEElement {
       console.error(`Failed add "${eventName}" event to ${this.selector} object.`);
     }
   }
+  setHtml(contents) {
+    this.dom.innerHTML = contents;
+  }
   addClass(className) {
     this.dom.classList.add(className);
   }
