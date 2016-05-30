@@ -1,11 +1,5 @@
-const sawpte = require('./sawpte.js');
-
 document.addEventListener('DOMContentLoaded', () => {
-  sawpte.view.setEvents();
-  sawpte.control.setEvents();
-  sawpte.schedule.setEvents();
-  sawpte.schedule.loadSchedule();
-  sawpte.control.connect();
+  require('./sawpte.js');
 });
 
 // setTimeout(() => {

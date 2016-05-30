@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>SAWPTE</title>
+    <link rel="stylesheet" href="./assets/stylesheets/main.css">
     <script>
       require('./assets/javascripts/main.js')
     </script>
@@ -13,49 +14,48 @@
       <h1 class="sawpte-view-title">Title</h1>
       <h2 class="sawpte-view-presenter">Presenter</h2>
       <button class="sawpte-view-switch-control">call control panel</button>
+      <form class="sawpte-control">
+        <p class="sawpte-control-status">status</p>
+        <section>
+          <select>
+            <option selected="selected"></option>
+          </select>
+          <button>set schedule</button>
+        </section>
+        <section>
+          <input type="number" class="sawpte-control-time">
+          <label>seconds</label>
+        </section>
+        <section>
+          <label>title</label>
+          <input type="text" class="sawpte-control-title">
+        </section>
+        <section>
+          <label>presenter</label>
+          <input type="text" class="sawpte-control-presenter">
+        </section>
+        <section>
+          <p>connect to</p>
+          <input type="radio" name="sawpte-control-connect" value="local" checked="checked">
+          <label>local</label>
+          <input type="radio" name="sawpte-control-connect" value="global">
+          <label>global</label>
+          <input type="text" class="sawpte-control-connect-server">
+        </section>
+        <form class="sawpte-schedule">
+          <table>
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Presenter</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+          </table>
+          <button>Load</button>
+          <button>Save</button>
+        </form>
+      </form>
     </main>
-    <form class="sawpte-control">
-      <p class="sawpte-control-status">status</p>
-      <section>
-        <select>
-          <option selected="selected"></option>
-          <option>a</option>
-        </select>
-        <button>set schedule</button>
-      </section>
-      <section>
-        <input type="number" class="sawpte-control-time">
-        <label>seconds</label>
-      </section>
-      <section>
-        <label>title</label>
-        <input type="text" class="sawpte-control-title">
-      </section>
-      <section>
-        <label>presenter</label>
-        <input type="text" class="sawpte-control-presenter">
-      </section>
-      <section>
-        <p>connect to</p>
-        <input type="radio" name="sawpte-control-connect" value="local" checked="checked">
-        <label>local</label>
-        <input type="radio" name="sawpte-control-connect" value="global">
-        <label>global</label>
-        <input type="text" class="sawpte-control-connect-server">
-      </section>
-    </form>
-    <form class="sawpte-schedule">
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Presenter</th>
-            <th>Time</th>
-          </tr>
-        </thead>
-      </table>
-      <button>Load</button>
-      <button>Save</button>
-    </form>
   </body>
 </html>

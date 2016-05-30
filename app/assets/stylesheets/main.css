@@ -1,0 +1,5 @@
+.sawpte-control {
+  transition: opacity 0.5s;
+  opacity: 0; }
+  .sawpte-control.show {
+    opacity: 1; }
