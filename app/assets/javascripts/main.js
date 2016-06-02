@@ -1,7 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-  require('./sawpte.js');
-});
+const SAWPTE      = require('./sawpte.js');
+const SAWPTEView  = require('./view.js');
 
-// setTimeout(() => {
-//   ipc.send('asynchronous-message-saw', 'ping');
-// }, 3000);
+// class SAWPTEControl extends SAWPTE {
+//   constructor() {
+//     super();
+//     this.store(this);
+//   }
+//   hide() {
+//   }
+//   connect() {
+//   }
+// }
+//
+// class SAWPTESchedule extends SAWPTE {
+//   constructor() {
+//     super();
+//     this.store(this);
+//   }
+//   loadSchedule() {
+//   }
+// }
+
+document.addEventListener('DOMContentLoaded', () => {
+  new SAWPTEView();
+  // new SAWPTEControl();
+  // new SAWPTESchedule();
+  SAWPTE.updateView();
+});

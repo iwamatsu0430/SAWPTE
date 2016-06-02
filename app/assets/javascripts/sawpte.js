@@ -1,98 +1,47 @@
-const electron      = require('electron');
-const ipc           = electron.ipcRenderer;
+// const electron      = require('electron');
+// const ipc           = electron.ipcRenderer;
 const SAWPTEElement = require('./element.js');
 
-let element = document.createElement('sawpte');
-let dispatch = () => {
-  let event = document.createEvent('HTMLEvents');
-  event.initEvent('dispatch', true, false);
-  element.dispatchEvent(event);
-};
-
 class SAWPTE {
-  constructor() {
-    this.initElements();
-    this.setEvents();
+
+  static updateView() {
+    let event = new CustomEvent('updateView');
+    SAWPTE.dispatch(event);
   }
+
+  static addEventListener(eventName, fn) {
+    SAWPTE.element.addEventListener(eventName, fn);
+  }
+
+  static dispatch(event) {
+    SAWPTE.element.dispatchEvent(event);
+  }
+
+  constructor(child) {
+    if (!SAWPTE.element) {
+      SAWPTE.element = document.createElement('sawpte');
+    }
+  }
+
   store(child) {
-    element.addEventListener("dispatch", () => child.dispatch());
+    SAWPTE.addEventListener("updateView", () => child.update());
   }
+
   $(selector) {
     return new SAWPTEElement(selector);
   }
-  update() {
-    dispatch();
+
+  on(eventName, fn) {
+    SAWPTE.addEventListener(eventName, fn);
   }
+
   initElements() {}
   setEvents() {}
-  dispatch() {}
+  update() {}
 }
 
-class SAWPTEView extends SAWPTE {
-  constructor() {
-    super();
-    super.store(this);
-    this.isShow = false;
-    this.time = -1;
-    this.title = "";
-    this.presenter = "";
-  }
-  initElements() {
-    this.$switchControl = this.$('.sawpte-view-switch-control');
-    this.$control = this.$('.sawpte-control');
-    this.$time = this.$('.sawpte-view-time');
-    this.$title = this.$('.sawpte-view-title');
-    this.$presenter = this.$('.sawpte-view-presenter');
-  }
-  setEvents() {
-    this.$switchControl.on('click', e => {
-      e.preventDefault();
-      this.isShow = !this.isShow;
-      this.update();
-    });
-  }
-  dispatch() {
-    if (this.isShow) {
-      this.$control.addClass('show');
-    } else {
-      this.$control.removeClass('show');
-    }
-    this.$time.setHtml(this.calcTime(this.time));
-    this.$title.setHtml(this.title ? this.title : 'Title');
-    this.$presenter.setHtml(this.presenter ? this.presenter : 'Presenter');
-  }
-  calcTime(time) {
-    const fillZero = (num) => ("0" + num).slice(-2);
-    return (time >= 0) ? `${fillZero(Math.floor(time / 60))}:${fillZero(time % 60)}` : '00:00';
-  }
-}
+module.exports = SAWPTE;
 
-class SAWPTEControl extends SAWPTE {
-  constructor() {
-    super();
-    super.store(this);
-  }
-  setEvents() {
-  }
-  hide() {
-  }
-  connect() {
-  }
-}
-
-class SAWPTESchedule extends SAWPTE {
-  constructor() {
-    super();
-    super.store(this);
-  }
-  setEvents() {
-  }
-  loadSchedule() {
-  }
-}
-
-new SAWPTEView();
-new SAWPTEControl();
-new SAWPTESchedule();
-
-dispatch();
+// setTimeout(() => {
+//   ipc.send('asynchronous-message-saw', 'ping');
+// }, 3000);

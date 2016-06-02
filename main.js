@@ -2,6 +2,7 @@ const electron      = require('electron');
 const app           = electron.app;
 const ipc           = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
+const SAWPTEServer  = require('./server.js');
 
 let mainWindow;
 let createWindow = () => {
@@ -31,4 +32,7 @@ app.on('activate', () => {
 });
 app.on('saw', () => {
   console.log('hello!!!');
-})
+});
+
+// FIXME stat server
+new SAWPTEServer();
