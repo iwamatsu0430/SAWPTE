@@ -1,5 +1,5 @@
-// const electron      = require('electron');
-// const ipc           = electron.ipcRenderer;
+const electron      = require('electron');
+const ipc           = electron.ipcRenderer;
 const SAWPTEElement = require('./element.js');
 
 class SAWPTE {
@@ -7,6 +7,10 @@ class SAWPTE {
   static updateView() {
     let event = new CustomEvent('updateView');
     SAWPTE.dispatch(event);
+  }
+
+  static connectServer(target) {
+    ipc.send('asynchronous-message-connect-server', target);
   }
 
   static addEventListener(eventName, fn) {
@@ -28,7 +32,7 @@ class SAWPTE {
   }
 
   $(selector) {
-    return new SAWPTEElement(selector);
+    return SAWPTEElement.querySelectorAll(selector);
   }
 
   on(eventName, fn) {
@@ -41,7 +45,3 @@ class SAWPTE {
 }
 
 module.exports = SAWPTE;
-
-// setTimeout(() => {
-//   ipc.send('asynchronous-message-saw', 'ping');
-// }, 3000);

@@ -1,17 +1,7 @@
-const SAWPTE      = require('./sawpte.js');
-const SAWPTEView  = require('./view.js');
+const SAWPTE          = require('./sawpte.js');
+const SAWPTEView      = require('./view.js');
+const SAWPTEControl   = require('./control.js');
 
-// class SAWPTEControl extends SAWPTE {
-//   constructor() {
-//     super();
-//     this.store(this);
-//   }
-//   hide() {
-//   }
-//   connect() {
-//   }
-// }
-//
 // class SAWPTESchedule extends SAWPTE {
 //   constructor() {
 //     super();
@@ -23,7 +13,7 @@ const SAWPTEView  = require('./view.js');
 
 document.addEventListener('DOMContentLoaded', () => {
   new SAWPTEView();
-  // new SAWPTEControl();
+  new SAWPTEControl();
   // new SAWPTESchedule();
   SAWPTE.updateView();
 });

@@ -13,8 +13,8 @@
       <time class="sawpte-view-time">00:00</time>
       <h1 class="sawpte-view-title">Title</h1>
       <h2 class="sawpte-view-presenter">Presenter</h2>
-      <button class="sawpte-view-switch-control">+</button>
-      <form class="sawpte-control">
+      <a class="sawpte-view-switch-control" href="#">+</a>
+      <section class="sawpte-control">
         <p class="sawpte-control-status">status</p>
         <section>
           <select>
@@ -34,15 +34,16 @@
           <label>presenter</label>
           <input type="text" class="sawpte-control-presenter">
         </section>
-        <section>
+        <form id="sawpte-control-connect">
           <p>connect to</p>
-          <input type="radio" name="sawpte-control-connect" value="local" checked="checked">
+          <input type="radio" name="sawpte-control-connect-radio" value="local" checked="checked">
           <label>local</label>
-          <input type="radio" name="sawpte-control-connect" value="global">
+          <input type="radio" name="sawpte-control-connect-radio" value="global">
           <label>global</label>
           <input type="text" class="sawpte-control-connect-server">
-        </section>
-        <form class="sawpte-schedule">
+          <button class="sawpte-control-connect-update">update</button>
+        </form>
+        <form id="sawpte-schedule">
           <table>
             <thead>
               <tr>
@@ -55,7 +56,7 @@
           <button>Load</button>
           <button>Save</button>
         </form>
-      </form>
+      </section>
     </main>
   </body>
 </html>

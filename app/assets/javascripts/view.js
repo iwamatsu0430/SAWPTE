@@ -11,11 +11,11 @@ class SAWPTEView extends SAWPTE {
     super();
     this.store(this);
 
-    this.$switchControl = this.$('.sawpte-view-switch-control');
-    this.$control = this.$('.sawpte-control');
-    this.$time = this.$('.sawpte-view-time');
-    this.$title = this.$('.sawpte-view-title');
-    this.$presenter = this.$('.sawpte-view-presenter');
+    this.$switchControl = this.$('.sawpte-view-switch-control')[0];
+    this.$control = this.$('.sawpte-control')[0];
+    this.$time = this.$('.sawpte-view-time')[0];
+    this.$title = this.$('.sawpte-view-title')[0];
+    this.$presenter = this.$('.sawpte-view-presenter')[0];
 
     this.isShow = false;
     this.seconds = 100;

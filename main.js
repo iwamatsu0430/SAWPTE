@@ -2,37 +2,57 @@ const electron      = require('electron');
 const app           = electron.app;
 const ipc           = electron.ipcMain;
 const BrowserWindow = electron.BrowserWindow;
-const SAWPTEServer  = require('./server.js');
+const SAWPTEServer  = require('./lib/server.js');
+const logger        = require('./lib/logger.js');
+const Logger        = logger.logger;
+const ColorCode     = logger.colorCode;
 
-let mainWindow;
-let createWindow = () => {
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  mainWindow.loadURL(`file://${__dirname}/app/index.html`);
-  mainWindow.webContents.openDevTools();
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-    app.quit();
-  });
+class Main {
+
+  constructor() {
+    this.initWindowEvents();
+    this.initIpcEvents();
+    this.startLocalServer();
+  }
+
+  initWindowEvents() {
+    app.on('ready', this.createWindow);
+    app.on('window-all-closed', () => {
+      if (process.platform !== 'darwin') {
+        app.quit();
+      }
+    });
+    app.on('activate', () => {
+      if (this.mainWindow === null) {
+        createWindow();
+      }
+    });
+  }
+
+  initIpcEvents() {
+    ipc.on('asynchronous-message-connect-server', (event, args) => {
+      Logger.log(`connect to ${args}!`);
+    });
+  }
+
+  createWindow() {
+    if (!this.mainWindow) {
+      this.mainWindow = new BrowserWindow({width: 800, height: 600});
+      this.mainWindow.loadURL(`file://${__dirname}/app/index.html`);
+      this.mainWindow.webContents.openDevTools();
+      this.mainWindow.on('closed', () => {
+        this.mainWindow = null;
+        app.quit();
+      });
+    }
+  }
+
+  startLocalServer() {
+    if (!this.localServer) {
+      this.localServer = new SAWPTEServer();
+      this.localServer.start();
+    }
+  }
 }
 
-// ipc.on('asynchronous-message-saw', (event, args) => {
-//   console.log(`${args} pong`);
-// });
-
-app.on('ready', createWindow);
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-app.on('saw', () => {
-  console.log('hello!!!');
-});
-
-// FIXME stat server
-new SAWPTEServer();
+new Main();
